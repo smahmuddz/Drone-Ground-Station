@@ -1,0 +1,273 @@
+<html>
+<title>Drone Ground Station</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+	<!--- <link rel="stylesheet" href="style.css" type="text/css"> -->
+	<link href="css/style.css" rel="stylesheet"/>
+	<script src="https://cdn.jsdelivr.net/npm/raphael@2.3.0/raphael.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/justgage@1.4.0/justgage.min.js"></script>
+<style>
+	#gaugeContainer1,
+	#gaugeContainer2,
+	#gaugeContainer3,
+	#gaugeContainer4,
+	#gaugeContainer5,
+	#gaugeContainer6 {
+		height: 100px;
+		width: 100px;
+	}
+
+	.button-img {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: white;
+}
+</style>
+</head>
+<body style="background-color: white;">
+  <header>
+  <img src= "poster.png" width = "35%" /> 
+  </header>
+<div>
+<table align =center >
+<tr>
+<td>
+<table>
+	<tr>
+	<td width="100">
+		<p style="font-size: 8pt;">Particulate Matter (PM2.5)</p>
+		<div id="gaugeContainer1"></div></td></tr><tr>
+<td style="height="100"; width="100">
+	<p style="font-size: 8pt;">Particulate Matter (PM10)</p>
+	<div id="gaugeContainer2"></div></td>
+</tr>
+<tr>
+	<td style="height="100"; width="100">
+		<p style="font-size: 8pt;">Ozone (O3)</p>
+		<div id="gaugeContainer3"></div></td>
+</tr>
+</table>
+</td>	
+<td>
+	<!-- <img src="http://192.168.10.1:8080/video" height="330" width="540"> -->
+	<video id="droneVideo" height="300" width="520" controls autoplay loop>
+		<source src="videoPlaceholder/drone.mp4" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+
+</td>
+<td>
+	<td>
+		<table>
+			<tr>
+			<td style="height="100"; width="100">
+				<p style="font-size: 8pt;">Nitrogen Dioxide (NO2)</p>
+				<div id="gaugeContainer4"></div>
+			</td></tr><tr>
+		<td style="height="100"; width="100">
+			<p style="font-size: 8pt;">Sulfur Dioxide (SO2)</p>
+			<div id="gaugeContainer5"></div></td>
+		</tr>
+		<tr>
+			<td style="height="100"; width="100">
+				<p style="font-size: 8pt;">Carbon Monoxide (CO)</p>
+				<div id="gaugeContainer6"></div></td>
+		</tr>
+		</table>
+		</td>	
+		
+</td>
+</tr>
+</table>
+	
+
+<table align="center" style="width: 60%;">
+	<tr>
+	  <td ></td>
+	  <td >
+		<button type="button button-img" style="border: none; background-color: white; width: 32px; height: 32px;" onclick="forward()"><img src="img\icons\icons8-slide-up-64.png" alt="" srcset=""></button>
+	  </td>
+	  <td ></td>
+	  <td >
+		<button type="button"  style="border: none; background-color: white; width: 32px; height: 32px;" onclick="ascend()"><img src="img/icons/icons8-double-up-32.png" alt="" srcset=""></button>
+	  </td>
+	  <td ><button type="button" class="button" style="width: 80px; height: 32px;" onclick="hold()">HOLD</button></td>
+	  <td ></td>
+	</tr>
+	<tr>
+	  <td >
+		<button type="button button-img" style="border: none; background-color: white; width: 32px; height: 32px;" onclick="moveLeft()"><img src="img\icons\icons8-back-to-64.png" alt="" srcset=""></button>
+	  </td>
+	  <td ><button type="button button-img" style="border: none; background-color: white; width: 32px; height: 32px;" onclick="backward()"><img src="img\icons\icons8-down-button-64.png" alt="" srcset=""></button>
+	  </td>
+	  <td >
+		<button type="button button-img" style="border: none; background-color: white; width: 32px; height: 32px;" onclick="moveRight()"><img src="img\icons\icons8-next-page-64.png" alt="" srcset=""></button>
+	  </td>
+	  <td > <button type="button" style="border: none; background-color: white; width: 32px; height: 32px;" onclick="descend()"><img src="img\icons\icons8-double-down-32.png" alt="" srcset=""></button></td>
+	  <td >
+		<button type="button" class="button" style="width: 80px; height: 32px;" onclick="stop()">STOP</button>
+	  </td>
+	</tr>
+	<tr>
+	  <td></td>
+	  <td >
+		</td>
+	  <td ></td>
+	  <td ></td>
+	  <td ></td>
+	  <td ></td>
+	</tr>
+</table>
+<footer style="margin-top:10px">Department of Computer Science and Engineering, East West University, Bangladesh.</footer>
+
+<script src="js/jQuery.js"></script>
+<script src="js/getData.js"></script>
+<!-- 
+<script>
+	// Initialize the first gauge
+	var gauge1 = new JustGage({
+		id: "gaugeContainer1",
+		value: 0,
+		min: 0,
+		max: 100,
+		title: "Gauge Title 1",
+		label: "Label 1",
+		valueFontColor: "#000",
+		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
+	});
+
+	// Initialize the second gauge
+	var gauge2 = new JustGage({
+		id: "gaugeContainer2",
+		value: 0,
+		min: 0,
+		max: 100,
+		title: "Gauge Title 2",
+		label: "Label 2",
+		valueFontColor: "#000",
+		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
+	});
+
+	// Initialize the third gauge
+	var gauge3 = new JustGage({
+		id: "gaugeContainer3",
+		value: 0,
+		min: 0,
+		max: 100,
+		title: "Gauge Title 3",
+		label: "Label 3",
+		valueFontColor: "#000",
+		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
+	});
+
+	// Initialize the fourth gauge
+	var gauge4 = new JustGage({
+		id: "gaugeContainer4",
+		value: 0,
+		min: 0,
+		max: 100,
+		title: "Gauge Title 4",
+		label: "Label 4",
+		valueFontColor: "#000",
+		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
+	});
+
+		// Initialize the fifth gauge
+		var gauge5 = new JustGage({
+		id: "gaugeContainer5",
+		value: 0,
+		min: 0,
+		max: 100,
+		title: "Gauge Title 5",
+		label: "Label 5",
+		valueFontColor: "#000",
+		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
+	});
+	
+		// Initialize the Sixth gauge
+		var gauge6 = new JustGage({
+		id: "gaugeContainer6",
+		value: 0,
+		min: 0,
+		max: 100,
+		title: "Gauge Title 6",
+		label: "Label 6",
+		valueFontColor: "#000",
+		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
+	});
+
+	// Function to update the gauge value (replace this with actual data)
+	function updateGaugeValue(gauge, newValue) {
+		gauge.refresh(newValue);
+	}
+
+	// Example: Call updateGaugeValue with new values (replace with actual data)
+	updateGaugeValue(gauge1, 50);
+	updateGaugeValue(gauge2, 75);
+	updateGaugeValue(gauge3, 25);
+	updateGaugeValue(gauge4, 50);
+	updateGaugeValue(gauge5, 75);
+	updateGaugeValue(gauge6, 25);
+</script> -->
+
+
+<script>
+	// Initialize the gauges with AQI colors and titles
+	function initializeGauge(containerId, title, min, max, label) {
+		return new JustGage({
+			id: containerId,
+			value: 0,
+			min: min,
+			max: max,
+			title: title,
+			label: label,
+			valueFontColor: "#000",
+			levelColors: ["#00E400", "#FFFF00", "#FF7E00", "#FF0000", "#8F3F97", "#7E0023"],
+		});
+	}
+
+	// Initialize the gauges
+	var gauge1 = initializeGauge("gaugeContainer1", "Particulate Matter (PM2.5)", 0, 500, "AQI");
+	var gauge2 = initializeGauge("gaugeContainer2", "Particulate Matter (PM10)", 0, 500, "AQI");
+	var gauge3 = initializeGauge("gaugeContainer3", "Ozone (O3)", 0, 500, "AQI");
+	var gauge4 = initializeGauge("gaugeContainer4", "Nitrogen Dioxide (NO2)", 0, 500, "AQI");
+	var gauge5 = initializeGauge("gaugeContainer5", "Sulfur Dioxide (SO2)", 0, 500, "AQI");
+	var gauge6 = initializeGauge("gaugeContainer6", "Carbon Monoxide (CO)", 0, 500, "AQI");
+
+	// Update the gauge values (replace with actual AQI values)
+	function updateGaugeValues() {
+		// Replace these values with actual AQI values for each gas
+		updateGaugeValue(gauge1, 75);
+		updateGaugeValue(gauge2, 90);
+		updateGaugeValue(gauge3, 45);
+		updateGaugeValue(gauge4, 120);
+		updateGaugeValue(gauge5, 30);
+		updateGaugeValue(gauge6, 8);
+	}
+
+	function updateGaugeValue(gauge, value) {
+		gauge.refresh(value);
+	}
+
+	// Call the function initially and whenever the window is resized
+	function setGaugeContainerHeight() {
+		const videoElement = document.getElementById("droneVideo");
+		const gaugeContainers = document.querySelectorAll("[id^=gaugeContainer]");
+
+		const videoHeight = videoElement.clientHeight;
+		gaugeContainers.forEach(container => {
+			container.style.height = `${videoHeight}px`;
+		});
+	}
+	// Update gauge values periodically (replace with your actual data updates)
+	updateGaugeValues();
+	setInterval(updateGaugeValues, 5000); // Update every 5 seconds for demonstration
+</script>
+
+
+</body>
+</html>

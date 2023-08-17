@@ -13,7 +13,8 @@ print("Speed (X): " + str(myDrone.get_speed_x()))  # Convert speed_x value to st
 print("Speed (Y): " + str(myDrone.get_speed_y()))  # Convert speed_y value to string
 
 # here parameter is in cm.
-# myDrone.takeoff()
+#myDrone.takeoff()
+sleep(4)
 # myDrone.rotate_counter_clockwise(90)
 # myDrone.move_forward(100)
 # myDrone.move_back(100)

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tello Drone Control</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#takeoffButton').click(function(e) {
+                e.preventDefault();
+                $.get('/takeoff', function(data) {
+                    console.log(data);
+                });
+            });
+
+            $('#landButton').click(function(e) {
+                e.preventDefault();
+                $.get('/land', function(data) {
+                    console.log(data);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Tello Drone Control</h1>
+    <button id="takeoffButton">Takeoff</button>
+    <button id="landButton">Land</button>
+</body>
+</html>

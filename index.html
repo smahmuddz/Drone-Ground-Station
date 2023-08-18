@@ -95,7 +95,7 @@
 	  <td >
 		<button type="button"  style="border: none; background-color: white; width: 32px; height: 32px;" onclick="ascend()"><img src="img/icons/icons8-double-up-32.png" alt="" srcset=""></button>
 	  </td>
-	  <td ><button type="button" class="button" style="width: 80px; height: 32px;" onclick="hold()">HOLD</button></td>
+	  <td ><button id="takeoffButton" type="button" class="button" style="width: 80px; height: 32px;">Takeoff</button></td>
 	  <td ></td>
 	</tr>
 	<tr>
@@ -109,7 +109,7 @@
 	  </td>
 	  <td > <button type="button" style="border: none; background-color: white; width: 32px; height: 32px;" onclick="descend()"><img src="img\icons\icons8-double-down-32.png" alt="" srcset=""></button></td>
 	  <td >
-		<button type="button" class="button" style="width: 80px; height: 32px;" onclick="stop()">STOP</button>
+		<button id="landButton" type="button" class="button" style="width: 80px; height: 32px;" onclick="stop()">Land</button>
 	  </td>
 	</tr>
 	<tr>
@@ -126,94 +126,23 @@
 
 <script src="js/jQuery.js"></script>
 <script src="js/getData.js"></script>
-<!-- 
 <script>
-	// Initialize the first gauge
-	var gauge1 = new JustGage({
-		id: "gaugeContainer1",
-		value: 0,
-		min: 0,
-		max: 100,
-		title: "Gauge Title 1",
-		label: "Label 1",
-		valueFontColor: "#000",
-		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
+	$(document).ready(function() {
+		$('#takeoffButton').click(function(e) {
+			e.preventDefault();
+			$.get('/takeoff', function(data) {
+				console.log(data);
+			});
+		});
+
+		$('#landButton').click(function(e) {
+			e.preventDefault();
+			$.get('/land', function(data) {
+				console.log(data);
+			});
+		});
 	});
-
-	// Initialize the second gauge
-	var gauge2 = new JustGage({
-		id: "gaugeContainer2",
-		value: 0,
-		min: 0,
-		max: 100,
-		title: "Gauge Title 2",
-		label: "Label 2",
-		valueFontColor: "#000",
-		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
-	});
-
-	// Initialize the third gauge
-	var gauge3 = new JustGage({
-		id: "gaugeContainer3",
-		value: 0,
-		min: 0,
-		max: 100,
-		title: "Gauge Title 3",
-		label: "Label 3",
-		valueFontColor: "#000",
-		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
-	});
-
-	// Initialize the fourth gauge
-	var gauge4 = new JustGage({
-		id: "gaugeContainer4",
-		value: 0,
-		min: 0,
-		max: 100,
-		title: "Gauge Title 4",
-		label: "Label 4",
-		valueFontColor: "#000",
-		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
-	});
-
-		// Initialize the fifth gauge
-		var gauge5 = new JustGage({
-		id: "gaugeContainer5",
-		value: 0,
-		min: 0,
-		max: 100,
-		title: "Gauge Title 5",
-		label: "Label 5",
-		valueFontColor: "#000",
-		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
-	});
-	
-		// Initialize the Sixth gauge
-		var gauge6 = new JustGage({
-		id: "gaugeContainer6",
-		value: 0,
-		min: 0,
-		max: 100,
-		title: "Gauge Title 6",
-		label: "Label 6",
-		valueFontColor: "#000",
-		levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
-	});
-
-	// Function to update the gauge value (replace this with actual data)
-	function updateGaugeValue(gauge, newValue) {
-		gauge.refresh(newValue);
-	}
-
-	// Example: Call updateGaugeValue with new values (replace with actual data)
-	updateGaugeValue(gauge1, 50);
-	updateGaugeValue(gauge2, 75);
-	updateGaugeValue(gauge3, 25);
-	updateGaugeValue(gauge4, 50);
-	updateGaugeValue(gauge5, 75);
-	updateGaugeValue(gauge6, 25);
-</script> -->
-
+</script>
 
 <script>
 	// Initialize the gauges with AQI colors and titles

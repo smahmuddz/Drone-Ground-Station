@@ -13,25 +13,25 @@ print("Speed (X): " + str(myDrone.get_speed_x()))  # Convert speed_x value to st
 print("Speed (Y): " + str(myDrone.get_speed_y()))  # Convert speed_y value to string
 
 # here parameter is in cm.
-#myDrone.takeoff()
+myDrone.takeoff()
 sleep(4)
-# myDrone.rotate_counter_clockwise(90)
-# myDrone.move_forward(100)
-# myDrone.move_back(100)
-# myDrone.move_left(100)
-# myDrone.move_right(100)
-# myDrone.land()
+myDrone.rotate_counter_clockwise(90)
+myDrone.move_forward(100)
+myDrone.move_back(100)
+myDrone.move_left(100)
+myDrone.move_right(100)
+myDrone.land()
 
 # Get Video
-while True:
-    img = myDrone.get_frame_read().frame
-    img = cv2.resize(img, (640, 480))  # Corrected the resize parameters
-    cv2.imshow("Image", img)
-    if cv2.waitKey(1) & 0xFF == ord('q'):  # Exit loop when 'q' key is pressed
-        break
+# while True:
+#     img = myDrone.get_frame_read().frame
+#     img = cv2.resize(img, (640, 480))  # Corrected the resize parameters
+#     cv2.imshow("Image", img)
+#     if cv2.waitKey(1) & 0xFF == ord('q'):  # Exit loop when 'q' key is pressed
+#         break
 
-myDrone.streamoff()  # Use streamoff() instead of stream_on()
-cv2.destroyAllWindows()
+# myDrone.streamoff()  # Use streamoff() instead of stream_on()
+# cv2.destroyAllWindows()
 
 # DJI Tello drone python interface using the official Tello SDK and Tello EDU SDK.
 # https://github.com/damiafuentes/DJITelloPy

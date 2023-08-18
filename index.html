@@ -95,7 +95,7 @@
 	  <td >
 		<button type="button"  style="border: none; background-color: white; width: 32px; height: 32px;" onclick="ascend()"><img src="img/icons/icons8-double-up-32.png" alt="" srcset=""></button>
 	  </td>
-	  <td ><button id="takeoffButton" type="button" class="button" style="width: 80px; height: 32px;">Takeoff</button></td>
+	  <td ><button id="takeoffBtn" type="button" class="button" style="width: 80px; height: 32px;" onclick="sendCommand("Takeoff")">Takeoff</button></td>
 	  <td ></td>
 	</tr>
 	<tr>
@@ -109,7 +109,7 @@
 	  </td>
 	  <td > <button type="button" style="border: none; background-color: white; width: 32px; height: 32px;" onclick="descend()"><img src="img\icons\icons8-double-down-32.png" alt="" srcset=""></button></td>
 	  <td >
-		<button id="landButton" type="button" class="button" style="width: 80px; height: 32px;" onclick="stop()">Land</button>
+		<button id="landBtn" type="button" class="button" style="width: 80px; height: 32px;" onclick="sendCommand("Land")">Land</button>
 	  </td>
 	</tr>
 	<tr>
@@ -126,22 +126,23 @@
 
 <script src="js/jQuery.js"></script>
 <script src="js/getData.js"></script>
-<script>
-	$(document).ready(function() {
-		$('#takeoffButton').click(function(e) {
-			e.preventDefault();
-			$.get('/takeoff', function(data) {
-				console.log(data);
-			});
-		});
 
-		$('#landButton').click(function(e) {
-			e.preventDefault();
-			$.get('/land', function(data) {
-				console.log(data);
-			});
-		});
-	});
+<script>
+
+function sendCommand(command) {
+    fetch("/send-command", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: `command=${encodeURIComponent(command)}`,
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+    });
+}
+
 </script>
 
 <script>

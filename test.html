@@ -2,28 +2,27 @@
 <html>
 <head>
     <title>Tello Drone Control</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#takeoffButton').click(function(e) {
-                e.preventDefault();
-                $.get('/takeoff', function(data) {
-                    console.log(data);
-                });
-            });
-
-            $('#landButton').click(function(e) {
-                e.preventDefault();
-                $.get('/land', function(data) {
-                    console.log(data);
-                });
-            });
-        });
-    </script>
 </head>
 <body>
     <h1>Tello Drone Control</h1>
-    <button id="takeoffButton">Takeoff</button>
-    <button id="landButton">Land</button>
+    <button id="takeoffBtn">Takeoff</button>
+    <button id="landBtn">Land</button>
+    <script>
+        document.getElementById("takeoffBtn").addEventListener("click", function() {
+            sendCommand("takeoff");
+        });
+
+        document.getElementById("landBtn").addEventListener("click", function() {
+            sendCommand("land");
+        });
+
+        function sendCommand(command) {
+            fetch("/send-command/" + command)
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                });
+        }
+    </script>
 </body>
 </html>
